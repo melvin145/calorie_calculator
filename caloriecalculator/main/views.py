@@ -22,9 +22,19 @@ def calculations(request):
         surplus_calorie=(calorie*(int(goal)/100))
         required_calorie=calorie+surplus_calorie                      
 
+    elif sex=="male":
+        calorie+=(int(weight)*10+6.5*int(heights)-5*int(age)+5)*float(Activity)
+        surplus_calorie=calorie*((20)/100)
+        required_calorie=calorie-(surplus_calorie)                         
+    elif sex=="female" and goal!='-20':
+        calorie+=(int(weight)*10+6.5*int(heights)-5*int(age)-161)*float(Activity)
+        surplus_calorie=calorie*(int(goal)/100)
+        required_calorie=calorie-surplus_calorie
     else:
         calorie+=(int(weight)*10+6.5*int(heights)-5*int(age)-161)*float(Activity)
-        required_calorie=calorie                         
-                          
+        surplus_calorie=calorie*(int(20)/100)
+        required_calorie=calorie-surplus_calorie    
+
+
 
     return render(request,'result.html',{'req_calorie':round(required_calorie)})
